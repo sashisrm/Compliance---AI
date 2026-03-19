@@ -251,18 +251,38 @@ src/
 
 ## Getting Started
 
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) v18 or higher
+- npm (comes with Node.js)
+
+### Run Locally
+
 ```bash
+# Clone the repository
+git clone https://github.com/sashisrm/Compliance---AI.git
+cd Compliance---AI
+
 # Install dependencies
 npm install
 
 # Start development server
 npm run dev
+```
 
+Open **http://localhost:5173** in your browser.
+
+### Other Commands
+
+```bash
 # Type-check
 npx tsc --noEmit
 
 # Production build
 npm run build
+
+# Preview production build
+npm run preview
 ```
 
 ---
@@ -289,3 +309,47 @@ npm run build
 | European Union | GDPR, EU AI Act, EU CRA |
 | United Kingdom | GDPR (UK) |
 | North America | CCPA |
+
+---
+
+## Production Readiness
+
+> **Status: Feature-complete prototype — not yet production-ready.**
+
+### What is production-ready
+
+| Area | Status |
+|------|--------|
+| Assessment engine & scoring | Ready |
+| BM25 RAG retrieval | Ready |
+| 12 frameworks / 300+ controls | Ready |
+| PDF / ZIP export | Ready |
+| TypeScript strict mode, no XSS/injection | Ready |
+
+### Critical blockers before customer-facing launch
+
+| Issue | Risk | Priority |
+|-------|------|----------|
+| API keys stored unencrypted in `localStorage` | Credential theft via DevTools or XSS | **Critical** |
+| Zero automated tests | Undetected regressions in scoring, RAG, export | **Critical** |
+| No error logging / monitoring | Production failures are invisible | **High** |
+| No rate-limiting on LLM calls | API cost abuse / unexpected billing | **High** |
+| IndexedDB quota not handled | App silently fails when browser storage is full | **Medium** |
+
+### Recommended use by audience
+
+| Audience | Recommendation |
+|----------|----------------|
+| Personal / internal use | Ready to use |
+| Beta / demo | Ready — warn users about API key storage |
+| Customer-facing production | Address critical blockers first |
+
+### Roadmap to production
+
+1. **Backend proxy for LLM calls** — removes API key exposure entirely (biggest single improvement)
+2. **Automated tests** — unit tests for scoring, RAG retrieval, and export (target 50%+ coverage)
+3. **Error tracking** — integrate Sentry or equivalent
+4. **Rate-limiting** — client-side throttle on LLM synthesis calls
+5. **Storage quota handling** — detect and surface IndexedDB quota errors to users
+6. **CSP headers** — Content Security Policy for deployment server
+7. **CI/CD pipeline** — automated build, type-check, and test on every push
