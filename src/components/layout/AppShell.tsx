@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
-import { Shield, Home, Plus, History, BookOpen, Menu, X, ChevronRight, Database, Sparkles } from 'lucide-react';
+import { Shield, Home, Plus, History, BookOpen, Menu, X, ChevronRight, Database, Sparkles, MessageCircle } from 'lucide-react';
 import type { AppPage } from '../../context/AppContext';
 
 interface NavItem {
@@ -16,7 +16,8 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'new-assessment', label: 'New Assessment', icon: Plus, description: 'Start compliance evaluation' },
   { id: 'history', label: 'History', icon: History, description: 'Past evaluations' },
   { id: 'frameworks', label: 'Frameworks', icon: BookOpen, description: 'Browse all frameworks' },
-  { id: 'knowledge-base', label: 'Knowledge Base', icon: Database, description: 'RAG document index', dividerBefore: true },
+  { id: 'chat', label: 'Compliance Chat', icon: MessageCircle, description: 'AI compliance advisor', dividerBefore: true },
+  { id: 'knowledge-base', label: 'Knowledge Base', icon: Database, description: 'RAG document index' },
   { id: 'skills', label: 'AI Skills', icon: Sparkles, description: 'RAG-powered analysis' },
 ];
 

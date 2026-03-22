@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import type { AssessmentResult } from '../types/assessment';
 
-export type AppPage = 'home' | 'new-assessment' | 'report' | 'history' | 'frameworks' | 'knowledge-base' | 'skills';
+export type AppPage = 'home' | 'new-assessment' | 'report' | 'history' | 'frameworks' | 'knowledge-base' | 'skills' | 'chat';
 
 interface AppContextValue {
   currentPage: AppPage;

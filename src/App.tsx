@@ -9,6 +9,7 @@ import { HistoryPage } from './pages/HistoryPage';
 import { FrameworksPage } from './pages/FrameworksPage';
 import { KnowledgeBasePage } from './pages/KnowledgeBasePage';
 import { SkillsPage } from './pages/SkillsPage';
+import { ChatPage } from './pages/ChatPage';
 
 function AppContent() {
   const { currentPage } = useApp();
@@ -22,6 +23,7 @@ function AppContent() {
       {currentPage === 'frameworks' && <FrameworksPage />}
       {currentPage === 'knowledge-base' && <KnowledgeBasePage />}
       {currentPage === 'skills' && <SkillsPage />}
+      {currentPage === 'chat' && <ChatPage />}
     </AppShell>
   );
 }
