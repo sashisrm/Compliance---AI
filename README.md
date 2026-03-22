@@ -1,6 +1,6 @@
 # ComplianceAI
 
-A web-based compliance assessment and GRC (Governance, Risk & Compliance) platform built with React 19, TypeScript, and Vite. It helps organisations evaluate their security and regulatory posture across 12 frameworks — including Responsible AI, the EU AI Act, and the EU Cyber Resilience Act — through a guided multi-step assessment wizard, and provides **RAG-powered AI Skills** for deep compliance analysis backed by a user-controlled knowledge base.
+A web-based compliance assessment and GRC (Governance, Risk & Compliance) platform built with React 19, TypeScript, and Vite. It helps organisations evaluate their security and regulatory posture across 12 frameworks — including Responsible AI, the EU AI Act, and the EU Cyber Resilience Act — through a guided multi-step assessment wizard, a **conversational Compliance Chat advisor**, and **RAG-powered AI Skills** for deep compliance analysis backed by a user-controlled knowledge base.
 
 > For a full technical deep-dive, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -11,6 +11,7 @@ A web-based compliance assessment and GRC (Governance, Risk & Compliance) platfo
 | Capability | Description |
 |------------|-------------|
 | **Assessment Wizard** | 5-step guided flow — business profile, IT/OT scope, framework selection, control questionnaire, review |
+| **Compliance Chat** | Conversational AI advisor — recommends frameworks, explains requirements, compares standards, guides remediation |
 | **12 Compliance Frameworks** | Cybersecurity, data protection, AI governance, and cyber resilience |
 | **Smart Recommendations** | Business-type and region-aware framework selection |
 | **Gap Analysis** | Prioritised findings with remediation roadmaps |
@@ -143,9 +144,27 @@ Retrieval uses a **pure-JS BM25** implementation — no ML model or embedding AP
 - Sentence-level highlight extraction
 - Optional filters: `frameworkFilter`, `typeFilter`, `tagFilter`, `topK`
 
+### Compliance Chat
+
+The **Compliance Chat** page provides a conversational interface to the entire knowledge base and skill layer:
+
+| Intent | Example Query | Response |
+|--------|--------------|----------|
+| Framework recommendation | "Which frameworks do I need for EU fintech?" | Mandatory + industry frameworks with rationale |
+| Framework explanation | "Explain the EU AI Act" | Full framework analysis via RAG |
+| Comparison | "Compare GDPR and CCPA" | Cross-framework overlap and differences |
+| Gap remediation | "How do I fix GDPR data retention gaps?" | Prioritised remediation roadmap |
+| Control search | "What are the encryption requirements?" | Ranked controls and document excerpts |
+
+- **Intent detection** — automatically routes queries to the right skill
+- **Quick-start prompts** — 5 one-click starting points on first load
+- **Framework pill bar** — one-click analysis of all 12 frameworks
+- **Suggestions** — each response includes follow-up prompt options
+- Works in template mode; upgrades to LLM synthesis when an API key is configured
+
 ### AI Skills
 
-Five skills are available from the **AI Skills** page:
+Five structured skills are available from the **AI Skills** page:
 
 | Skill | Input | Output |
 |-------|-------|--------|
@@ -227,7 +246,8 @@ src/
 │   ├── ReportPage.tsx
 │   ├── HistoryPage.tsx
 │   ├── KnowledgeBasePage.tsx  # Document management, search, AI settings
-│   └── SkillsPage.tsx         # AI Skills panel with result display
+│   ├── SkillsPage.tsx         # AI Skills panel with result display
+│   └── ChatPage.tsx           # Conversational compliance advisor
 ├── services/
 │   ├── rag/
 │   │   ├── types.ts           # KnowledgeDocument, PageChunk, RetrievalResult, LLMConfig
